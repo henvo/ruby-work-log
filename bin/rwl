@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require_relative '../lib/rwl_tasks'
+
+RWLTask.new
