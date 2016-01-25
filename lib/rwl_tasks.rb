@@ -46,7 +46,7 @@ class RWLTask
   def log_to_file(message)
     open('work.log', 'a') do |f|
       @timestamp = Time.now.getutc.to_s
-      f.puts @timestamp + message
+      f.puts "#{@timestamp} #{message}"
     end
   end
 
