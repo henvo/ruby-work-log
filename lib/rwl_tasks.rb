@@ -1,6 +1,7 @@
 class RWLTask
 
-  COMMAND_WHITELIST = %w(start pause unpause stop)
+  LOGFILE = File.dirname(__FILE__) + '/../work.log'
+  COMMAND_WHITELIST = %w(start pause unpause stop status)
   HELP_MESSAGE      = <<-EOT
     Usage: rwl COMMAND
     The avalible commands are:
@@ -8,6 +9,7 @@ class RWLTask
     stop      Stop logging
     pause     Pause logging
     unpause   Unpause logging
+    status    Read current state
   EOT
 
   def initialize
@@ -39,12 +41,16 @@ class RWLTask
     puts 'Get back to work!'
   end
 
+  def status
+    puts IO.readlines(LOGFILE).last
+  end
+
   def help
     puts HELP_MESSAGE
   end
 
   def log_to_file(message)
-    open(File.dirname(__FILE__) + '/../work.log', 'a') do |f|
+    open(LOGFILE, 'a') do |f|
       @timestamp = Time.now.getutc.to_s
       f.puts "#{@timestamp} #{message}"
     end
